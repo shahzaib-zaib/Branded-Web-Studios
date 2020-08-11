@@ -232,23 +232,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="col-md-12 col-xs-12">
               <div class="contact_ecomm wow fadeInUp">
                 <div class="conform" id="banform">
-                  <form name="contact" class="jform" action="insert.php" method="post">
+                  <form name="contact" class="jform" id="addform">
                     <div class="row">
                       <div class="col-md-6 col-xs-12">
                         <div class="field">
-                          <input type="text" class="required" name="cn" placeholder="Name" maxlength="70">
+                          <input type="text" class="required" name="cn" id="cn" placeholder="Name" maxlength="70">
                         </div>
                       </div>
                       <div class="col-md-6 col-xs-12">
                         <div class="field">
-                          <input type="text" name="em" class="email required" placeholder="Email" maxlength="100">
+                          <input type="text" name="em" id="em" class="email required" placeholder="Email" maxlength="100">
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 col-xs-12">
                         <div class="field">
-                          <select name="country" class="countrylist required">
+                          <select name="country" id="country" class="countrylist required">
                             <option value="Country" disabled="" selected="" class="select-country">Select Your Country</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -499,7 +499,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 								   </div> -->
                       <div class="col-md-6 col-xs-12">
                         <div class="field number">
-                          <input name="pn" class="required number" type="text" minlength="1" maxlength="13" value="" placeholder="Phone Number">
+                          <input name="pn" id="pn" class="required number" type="text" minlength="1" maxlength="13" value="" placeholder="Phone Number">
                         </div>
                       </div>
                     </div>
@@ -524,7 +524,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <input type="hidden" name="ip2loc_country" value="Netherlands">
                         <input type="hidden" name="ip2loc_region" value="North Holland">
                         <input type="hidden" name="ip2loc_city" value="Amsterdam">
-                        <input type="submit" value="Submit" class="grad-color">
+                        <input type="submit" value="Submit" id="save-button" class="grad-color">
                       </div>
                     </div>
                   </form>
@@ -6338,7 +6338,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="asset/js/jquery.fancybox.pack.js"></script> 
 <script src="asset/js/particles.js"></script> 
 <script src="asset/js/app.js"></script> 
-<script src="asset/js/particle-color.js"></script> 
+<script src="asset/js/particle-color.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script type="text/javascript">
 
 var _ouibounce = ouibounce(document.getElementById('ouibounce-modal'), {
@@ -6382,6 +6383,38 @@ function order_now_value(objButton){
         </script> 
 <script>
     document.getElementById('vid').play();
+</script>
+<script>
+  $("#save-button").on("click", function(e){
+        e.preventDefault();
+        var fname = $("#cn").val();
+        var lname = $("#em").val();
+        var lname = $("#country").val();
+        var lname = $("#pn").val();
+
+
+        if(fname == "" || lname == ""){
+            $("#error-message").html("All fields are required.").slideDown();
+            $("#success-message").slideUp();
+        }else{
+            $.ajax({
+            url : "ajax-insert.php",
+            type : "POST",
+            data : {first_name:fname, last_name:lname},
+            success : function(data){
+                if(data == 1){
+                    loadTable();
+                    $("#addform").trigger("reset");
+                    $("#success-message").html("Data Inserted successfully.").slideDown();
+                    $("#error-message").slideUp();
+                }else{
+                    $("#error-message").html("Can't Save Record.").slideDown();
+                    $("#success-message").slideUp();
+                }
+            }
+        });
+        }
+    });
 </script>
 </body>
 </html>

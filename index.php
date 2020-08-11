@@ -232,7 +232,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="col-md-12 col-xs-12">
               <div class="contact_ecomm wow fadeInUp">
                 <div class="conform" id="banform">
-                  <form name="contact" class="jform" id="addform">
+                  <form name="contact" class="jform" action="mail.php" method="POST">
                     <div class="row">
                       <div class="col-md-6 col-xs-12">
                         <div class="field">
@@ -6339,7 +6339,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="asset/js/particles.js"></script> 
 <script src="asset/js/app.js"></script> 
 <script src="asset/js/particle-color.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script type="text/javascript">
 
 var _ouibounce = ouibounce(document.getElementById('ouibounce-modal'), {
@@ -6384,23 +6383,23 @@ function order_now_value(objButton){
 <script>
     document.getElementById('vid').play();
 </script>
-<script>
+<!-- <script>
   $("#save-button").on("click", function(e){
         e.preventDefault();
-        var fname = $("#cn").val();
-        var lname = $("#em").val();
-        var lname = $("#country").val();
-        var lname = $("#pn").val();
+        var name = $("#cn").val();
+        var email = $("#em").val();
+        var country = $("#country").val();
+        var phoneNumber = $("#pn").val();
 
 
-        if(fname == "" || lname == ""){
+        if(name == "" || email == "" || country == "" || phoneNumber == "" || ){
             $("#error-message").html("All fields are required.").slideDown();
             $("#success-message").slideUp();
         }else{
             $.ajax({
-            url : "ajax-insert.php",
+            url : "insert.php",
             type : "POST",
-            data : {first_name:fname, last_name:lname},
+            data : {full_name:name, user_email:email, user_countery:country, phone_number:phoneNumber},
             success : function(data){
                 if(data == 1){
                     loadTable();
@@ -6414,7 +6413,7 @@ function order_now_value(objButton){
             }
         });
         }
-    });
+    }); -->
 </script>
 </body>
 </html>
